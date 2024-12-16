@@ -25,7 +25,7 @@ requirements:
     - python >={{ python_min }}
     - pytest >=7.0
     - rich
-    - typing-extensions
+    - attrs
 
 test:
   imports:
