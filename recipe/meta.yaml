@@ -7,21 +7,22 @@ package:
 
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
   sha256: a5cf6c83497de65788c8a609f616fafedac50295c48f2eb3184bc08b67a9893e
 
 build:
   noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
+
 requirements:
   host:
-    - python
+    - python {{ python_min }}
     - pip
     - setuptools >=42
     - setuptools-scm
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - pytest >=7.0
     - rich
     - typing-extensions
@@ -32,6 +33,7 @@ test:
   commands:
     - pip check
   requires:
+    - python {{ python_min }}
     - pip
 
 about:
@@ -42,4 +44,5 @@ about:
 
 extra:
   recipe-maintainers:
+    - nicoddemus
     - ocefpaf
